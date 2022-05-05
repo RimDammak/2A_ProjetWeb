@@ -1,9 +1,11 @@
 <?php
 include '../controller/reclamationc.php';
+include '../controller/reponseC.php';
 
 
 
 $reclamationC = new ReclamationC();
+$reponseC = new ReponseC();
 if($_GET["temp"]==1)
 {
     $listeReclamationC = $reclamationC->trireclamations();
@@ -100,6 +102,7 @@ else
                             </tr>
                         </thead>
                         <tbody>
+                       
                             <?php
                             foreach ($listeReclamationC as $Reclamation) {
                             ?>
@@ -111,10 +114,33 @@ else
                                     <td><?php echo $Reclamation['message']; ?></td>
                                     <td>
                                     <a href="supprimerReclamation.php?id=<?php echo $Reclamation['id']; ?>" class="btn">Supprimer</a>
-                                    <a href="FormModif.php?id=<?php echo $Reclamation['id']; ?>" class="btn">Modifier</a>
-                 
+                                    </td>
+                                    <td>
+                                    <a href="FormReponse.php?id=<?php echo $Reclamation['id']; ?>" class="btn">Reponse</a>
                                     </td>
                                    
+                                </tr>
+                               
+                                <tr>
+                                  <td></td>
+
+                                  <td><h1>Reponses</h1></td>
+                                  
+                            <?php
+                            $listeReponseC = $reponseC->afficherreponses($Reclamation['id']);
+                            foreach ($listeReponseC as $Reponse) {
+                            ?>
+                                  <td><?php echo $Reponse['contenu_rep']; ?></td>
+                                  <td>
+                                  <a href="supprimerReponse.php?id=<?php echo $Reponse['id_rep']; ?>" class="btn">Supprimer</a>
+                                  </td>
+                                  <td>
+                                  <a href="FormModifRep.php?id=<?php echo $Reponse['id_rep']; ?>" class="btn">Modifier</a>
+                                  </td>
+                                  <?php
+                            }
+
+                            ?>
                                 </tr>
                             <?php
                             }

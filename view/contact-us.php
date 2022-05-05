@@ -1,3 +1,21 @@
+<?php
+include '../controller/reclamationc.php';
+include '../controller/reponseC.php';
+$reponseC = new ReponseC();
+
+
+$reclamationC = new ReclamationC();
+$id=$_GET["id"];
+if($_GET["temp"]==1)
+{
+    $listeReclamationC = $reclamationC->trireclamations();
+}
+else
+{
+    $listeReclamationC = $reclamationC->afficherreclamations();
+}
+
+?>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 
@@ -635,6 +653,67 @@
         </div>
         
     </div>
+    <div class="details">
+                <!---- Order list -->
+                <div class="recentorders">
+                    <div class="cardheader">
+                        <h2>Demande recente</h2>
+                        <a href="contact-us.php?temp=1" class="btn">Tri</a>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td><h1>Nom</h1></td>
+                                <td><h1>Email</h1></td>
+                                <td><h1>Numero</h1></td>
+                                <td><h1>Objet</h1></td>
+                                <td><h1>Message</h1></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            foreach ($listeReclamationC as $Reclamation) {
+                            ?>
+                                <tr>
+                                    <td><?php echo $Reclamation['name']; ?></td>
+                                    <td><?php echo $Reclamation['email']; ?></td>
+                                    <td><?php echo $Reclamation['num_tel']; ?></td>
+                                    <td><?php echo $Reclamation['objet']; ?></td>
+                                    <td><?php echo $Reclamation['message']; ?></td>
+                                    <td>
+                                    <a href="FormModif.php?id=<?php echo $Reclamation['id']; ?>" class="btn">Modifier</a>
+                                    <a href="contact-us.php?id=<?php echo $Reclamation['id']; ?>" class="btn">Reponses</a>
+                 
+                                    </td>
+                                   
+                                </tr>
+                                <?php
+                            if ($Reclamation['id'] == $id) {
+                            ?>
+                                <tr>
+                                  <td></td>
+
+                                  <td><h1>Reponses</h1></td>
+                                  
+                            <?php
+                            $listeReponseC = $reponseC->afficherreponses($Reclamation['id']);
+                            foreach ($listeReponseC as $Reponse) {
+                            ?>
+                                  <td><?php echo $Reponse['contenu_rep']; ?></td>
+                                  
+                                  <?php
+                            }}
+
+                            ?>
+                                </tr>
+                            <?php
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
     <!--End Body Content-->
     
     <!--Footer-->

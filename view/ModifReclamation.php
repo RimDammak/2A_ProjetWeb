@@ -13,5 +13,5 @@ if(
 }
 else
 echo 'erreur';
-header("Location: dashReclamation.php?temp=0");
+header("Location: contact-us.php?temp=0");
 ?>
