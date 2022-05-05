@@ -4,7 +4,7 @@ include '../controller/mail.php';
 $commandec=new CommandeC();
 
 
-    $commande = new Commande("motaz","sammoud","motaz.sammoud@esprit.tn",$_GET['nom']);
+    $commande = new Commande("hechmi","amine","medamine.hechmi@esprit.tn",$_GET['nom']);
     $commandec->ajoutercommande($commande);
    $email='motaz.sammoud@esprit.tn';
     $email_content = array(
